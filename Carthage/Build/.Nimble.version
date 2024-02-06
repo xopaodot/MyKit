@@ -1,0 +1,60 @@
+{
+  "Mac" : [
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "4fc52fb741d7f9db4d6322c5dbecf25e0f29a00a80524858423a0d7a4caab3c3",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "macos-arm64_x86_64"
+    }
+  ],
+  "watchOS" : [
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "1697250121d2f286fed95d7fd3ee75f57321069f4bca92808ac2e7927bdffa06",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "watchos-arm64_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "dbcf60cb36873540b1852b1babd053292c16ebbebadb8ddc36ac8a9a60b6908f",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "watchos-arm64_arm64_32_armv7k"
+    }
+  ],
+  "tvOS" : [
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "fe8423f6e7dffd9199c84a23dbbd03a90824d84db26cbc2ea1ad233f731405d7",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "tvos-arm64"
+    },
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "30b62274a12eb0e2512af803751d521fbb24036bdc1ac914e71f45adb9be44b5",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "tvos-arm64_x86_64-simulator"
+    }
+  ],
+  "commitish" : "v13.2.0",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "d9693e3cdfe385e47c67c5969981565be0140cde76349cff7891851528a07398",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "ios-arm64"
+    },
+    {
+      "swiftToolchainVersion" : "5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)",
+      "hash" : "e7555dd2042acc8656824ee089302cc108f6d2cd20b454ab696783ec51da97da",
+      "name" : "Nimble",
+      "container" : "Nimble.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    }
+  ]
+}

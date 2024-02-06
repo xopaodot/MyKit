@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CSodium",
+        "repositoryURL": "https://github.com/OuterCorner/CSodium",
+        "state": {
+          "branch": null,
+          "revision": "24421983744eaee4d4d632e84d260b9a58ac0409",
+          "version": "1.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

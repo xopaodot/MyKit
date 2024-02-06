@@ -1,0 +1,31 @@
+{
+  "Mac" : [
+    {
+      "hash" : "76e5c70a2931dbe6a2bc5082c1458279fc47428e38f13c350b96df0b519eb58b",
+      "name" : "Sodium",
+      "container" : "Sodium.xcframework",
+      "identifier" : "macos-arm64_x86_64"
+    }
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "1.1.0",
+  "iOS" : [
+    {
+      "hash" : "c3398a701fd87ddd0ca1f54b52fbd2eb15360126a547460d1f6defea33974216",
+      "name" : "Sodium",
+      "container" : "Sodium.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    },
+    {
+      "hash" : "8187702a4883fdd9c12a65c38b20e45cacad7c124d369fc62c180c5240f3fce3",
+      "name" : "Sodium",
+      "container" : "Sodium.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    }
+  ]
+}

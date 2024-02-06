@@ -1,0 +1,17 @@
+{
+  "commitish" : "7.6.5",
+  "iOS" : [
+    {
+      "hash" : "364472bddf93cd89f542eaa4626cbda8fd000607538c5880c6b253a951304901",
+      "name" : "CocoaAsyncSocket",
+      "container" : "CocoaAsyncSocket.xcframework",
+      "identifier" : "ios-arm64"
+    },
+    {
+      "hash" : "1e4bb03e7cb0dcc890622044afff03c73196737e0d9d1c8a24181c844a24c5a3",
+      "name" : "CocoaAsyncSocket",
+      "container" : "CocoaAsyncSocket.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    }
+  ]
+}

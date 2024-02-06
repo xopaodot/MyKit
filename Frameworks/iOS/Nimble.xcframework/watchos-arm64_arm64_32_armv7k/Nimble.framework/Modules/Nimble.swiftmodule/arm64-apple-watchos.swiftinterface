@@ -1,0 +1,1690 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)
+// swift-module-flags: -target arm64-apple-watchos7.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Nimble
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreFoundation
+import CoreGraphics
+import CwlPosixPreconditionTesting
+import Dispatch
+import Foundation
+import Foundation/*.ComparisonResult*/
+import Foundation/*.NSDictionary*/
+import Foundation/*.NSException*/
+import Foundation/*.NSExceptionName*/
+import Foundation/*.NSFastEnumeration*/
+import Foundation/*.NSFastEnumerationIterator*/
+import Foundation/*.NSObject*/
+import Foundation/*.NSString*/
+import Foundation/*.Thread*/
+import Foundation/*.TimeInterval*/
+@_exported import Nimble
+import Swift
+import XCTest
+import _Concurrency
+import _StringProcessing
+public let DefaultDelta: Swift.Double
+public func defaultDelta<F>() -> F where F : Swift.FloatingPoint
+public func beCloseTo<Value>(_ expectedValue: Value, within delta: Value = defaultDelta()) -> Nimble.Matcher<Value> where Value : Swift.FloatingPoint
+public func beCloseTo<Value>(_ expectedValue: Value, within delta: Swift.Double = DefaultDelta) -> Nimble.Matcher<Value> where Value : Nimble.NMBDoubleConvertible
+@objc @_hasMissingDesignatedInitializers public class NMBObjCBeCloseToMatcher : Nimble.NMBMatcher {
+  @objc public var within: (Swift.CDouble) -> Nimble.NMBObjCBeCloseToMatcher {
+    @objc get
+  }
+  @objc deinit
+}
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beCloseToMatcher(_ expected: Foundation.NSNumber, within: Swift.CDouble) -> Nimble.NMBObjCBeCloseToMatcher
+}
+public func beCloseTo<Value, Values>(_ expectedValues: Values, within delta: Value = defaultDelta()) -> Nimble.Matcher<Values> where Value : Swift.FloatingPoint, Value == Values.Element, Values : Swift.Collection
+infix operator ≈ : ComparisonPrecedence
+public func ≈ <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: Value) where Value : Swift.Collection, Value.Element : Swift.FloatingPoint
+#if compiler(>=5.3) && $AsyncAwait
+public func ≈ <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: Value) async where Value : Swift.Collection, Value.Element : Swift.FloatingPoint
+#endif
+public func ≈ <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: Value) where Value : Swift.FloatingPoint
+#if compiler(>=5.3) && $AsyncAwait
+public func ≈ <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: Value) async where Value : Swift.FloatingPoint
+#endif
+public func ≈ <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: (expected: Value, delta: Value)) where Value : Swift.FloatingPoint
+#if compiler(>=5.3) && $AsyncAwait
+public func ≈ <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: (expected: Value, delta: Value)) async where Value : Swift.FloatingPoint
+#endif
+public func == <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: (expected: Value, delta: Value)) where Value : Swift.FloatingPoint
+#if compiler(>=5.3) && $AsyncAwait
+public func == <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: (expected: Value, delta: Value)) async where Value : Swift.FloatingPoint
+#endif
+public func ≈ <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: Value) where Value : Nimble.NMBDoubleConvertible
+#if compiler(>=5.3) && $AsyncAwait
+public func ≈ <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: Value) async where Value : Nimble.NMBDoubleConvertible
+#endif
+public func ≈ <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: (expected: Value, delta: Swift.Double)) where Value : Nimble.NMBDoubleConvertible
+#if compiler(>=5.3) && $AsyncAwait
+public func ≈ <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: (expected: Value, delta: Swift.Double)) async where Value : Nimble.NMBDoubleConvertible
+#endif
+public func == <Value>(lhs: Nimble.SyncExpectation<Value>, rhs: (expected: Value, delta: Swift.Double)) where Value : Nimble.NMBDoubleConvertible
+#if compiler(>=5.3) && $AsyncAwait
+public func == <Value>(lhs: Nimble.AsyncExpectation<Value>, rhs: (expected: Value, delta: Swift.Double)) async where Value : Nimble.NMBDoubleConvertible
+#endif
+precedencegroup PlusMinusOperatorPrecedence {
+  higherThan: BitwiseShiftPrecedence
+}
+infix operator ± : PlusMinusOperatorPrecedence
+public func ± <Value>(lhs: Value, rhs: Value) -> (expected: Value, delta: Value) where Value : Swift.FloatingPoint
+public func ± <Value>(lhs: Value, rhs: Swift.Double) -> (expected: Value, delta: Swift.Double) where Value : Nimble.NMBDoubleConvertible
+public func beSuccess<Success, Failure>(test: ((Success) -> Swift.Void)? = nil) -> Nimble.Matcher<Swift.Result<Success, Failure>> where Failure : Swift.Error
+public func beFailure<Success, Failure>(test: ((Failure) -> Swift.Void)? = nil) -> Nimble.Matcher<Swift.Result<Success, Failure>> where Failure : Swift.Error
+public enum ExpectationStatus : Swift.Equatable {
+  case pending
+  case passed
+  case failed
+  case mixed
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: Nimble.ExpectationStatus, b: Nimble.ExpectationStatus) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol Expectation {
+  var location: Nimble.SourceLocation { get }
+  var status: Nimble.ExpectationStatus { get }
+  @discardableResult
+  func verify(_ pass: Swift.Bool, _ message: Nimble.FailureMessage) -> Self
+}
+extension Nimble.Expectation {
+  @available(*, deprecated, message: "Use the require dsl")
+  public func onFailure(throw error: Swift.Error) throws
+}
+public struct SyncExpectation<Value> : Nimble.Expectation {
+  public let expression: Nimble.Expression<Value>
+  public let status: Nimble.ExpectationStatus
+  public init(expression: Nimble.Expression<Value>)
+  @discardableResult
+  public func verify(_ pass: Swift.Bool, _ message: Nimble.FailureMessage) -> Nimble.SyncExpectation<Value>
+  public var location: Nimble.SourceLocation {
+    get
+  }
+  @discardableResult
+  public func to(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  @discardableResult
+  public func toNot(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  @discardableResult
+  public func notTo(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+}
+public struct AsyncExpectation<Value> : Nimble.Expectation {
+  public let expression: Nimble.AsyncExpression<Value>
+  public let status: Nimble.ExpectationStatus
+  public init(expression: Nimble.AsyncExpression<Value>)
+  public var location: Nimble.SourceLocation {
+    get
+  }
+  @discardableResult
+  public func verify(_ pass: Swift.Bool, _ message: Nimble.FailureMessage) -> Nimble.AsyncExpectation<Value>
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+}
+@_hasMissingDesignatedInitializers public class NimbleXCTestHandler : Nimble.AssertionHandler {
+  public func assert(_ assertion: Swift.Bool, message: Nimble.FailureMessage, location: Nimble.SourceLocation)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class NimbleShortXCTestHandler : Nimble.AssertionHandler {
+  public func assert(_ assertion: Swift.Bool, message: Nimble.FailureMessage, location: Nimble.SourceLocation)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc final public class CurrentTestCaseTracker : ObjectiveC.NSObject, XCTest.XCTestObservation {
+  @objc public static let sharedInstance: Nimble.CurrentTestCaseTracker
+  @objc final public func testCaseWillStart(_ testCase: XCTest.XCTestCase)
+  @objc final public func testCaseDidFinish(_ testCase: XCTest.XCTestCase)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public func recordFailure(_ message: Swift.String, location: Nimble.SourceLocation)
+public protocol TestOutputStringConvertible {
+  var testDescription: Swift.String { get }
+}
+extension Swift.Double : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Swift.Float : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.NSNumber : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Swift.Array : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Swift.AnySequence : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.NSArray : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.NSIndexSet : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Swift.String : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.Data : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+public func stringify<T>(_ value: T?) -> Swift.String
+@_inheritsConvenienceInitializers @objc public class NMBStringer : ObjectiveC.NSObject {
+  @objc public class func stringify(_ obj: Any?) -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+public func prettyCollectionType<T>(_ value: T) -> Swift.String
+public func prettyCollectionType<T>(_ collection: T) -> Swift.String where T : Swift.Collection
+public typealias FileString = Swift.String
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers final public class SourceLocation : ObjectiveC.NSObject {
+  final public let file: Nimble.FileString
+  final public let line: Swift.UInt
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public func beLessThanOrEqualTo<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func <= <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Swift.Comparable
+#if compiler(>=5.3) && $AsyncAwait
+public func <= <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Swift.Comparable
+#endif
+public func beLessThanOrEqualTo<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Nimble.NMBComparable
+public func <= <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Nimble.NMBComparable
+#if compiler(>=5.3) && $AsyncAwait
+public func <= <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Nimble.NMBComparable
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beLessThanOrEqualToMatcher(_ expected: Nimble.NMBComparable?) -> Nimble.NMBMatcher
+}
+@available(*, unavailable, renamed: "PollingDefaults")
+public struct AsyncDefaults {
+  public static var timeout: Nimble.NimbleTimeInterval {
+    get
+    set
+  }
+  public static var pollInterval: Nimble.NimbleTimeInterval {
+    get
+    set
+  }
+}
+public struct PollingDefaults {
+  public static var timeout: Nimble.NimbleTimeInterval
+  public static var pollInterval: Nimble.NimbleTimeInterval
+}
+extension Nimble.SyncExpectation {
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `toEventually` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `toEventuallyNot` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `toNotEventually` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `toNever` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `neverTo` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `toAlways` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @discardableResult
+  @available(*, noasync, message: "the sync variant of `alwaysTo` does not work in async contexts. Use the async variant as a drop-in replacement")
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #else
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) -> Nimble.SyncExpectation<Value>
+  #endif
+}
+public class AssertionDispatcher : Nimble.AssertionHandler {
+  public init(handlers: [Nimble.AssertionHandler])
+  public func assert(_ assertion: Swift.Bool, message: Nimble.FailureMessage, location: Nimble.SourceLocation)
+  @objc deinit
+}
+public struct AsyncExpression<Value> {
+  public let location: Nimble.SourceLocation
+  public let isClosure: Swift.Bool
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(expression: @escaping () async throws -> Value?, location: Nimble.SourceLocation, isClosure: Swift.Bool = true)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(memoizedExpression: @escaping (Swift.Bool) async throws -> Value?, location: Nimble.SourceLocation, withoutCaching: Swift.Bool, isClosure: Swift.Bool = true)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func toSynchronousExpression() async -> Nimble.Expression<Value>
+  #endif
+  public func cast<U>(_ block: @escaping (Value?) throws -> U?) -> Nimble.AsyncExpression<U>
+  #if compiler(>=5.3) && $AsyncAwait
+  public func cast<U>(_ block: @escaping (Value?) async throws -> U?) -> Nimble.AsyncExpression<U>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func evaluate() async throws -> Value?
+  #endif
+  public func withoutCaching() -> Nimble.AsyncExpression<Value>
+  public func withCaching() -> Nimble.AsyncExpression<Value>
+}
+public enum NimbleTimeInterval : Swift.Sendable, Swift.Equatable {
+  case seconds(Swift.Int)
+  case milliseconds(Swift.Int)
+  case microseconds(Swift.Int)
+  case nanoseconds(Swift.Int)
+  public static func == (a: Nimble.NimbleTimeInterval, b: Nimble.NimbleTimeInterval) -> Swift.Bool
+}
+extension Nimble.NimbleTimeInterval : Swift.CustomStringConvertible {
+  public var dispatchTimeInterval: Dispatch.DispatchTimeInterval {
+    get
+  }
+  public var nanoseconds: Swift.UInt64 {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+extension Nimble.NimbleTimeInterval {
+  public var timeInterval: Foundation.TimeInterval {
+    get
+  }
+}
+extension Swift.Double {
+  public var nimbleInterval: Nimble.NimbleTimeInterval {
+    get
+  }
+}
+extension Foundation.Date {
+  public func advanced(by nimbleTimeInterval: Nimble.NimbleTimeInterval) -> Foundation.Date
+}
+public func beAnInstanceOf<T>(_ expectedType: T.Type) -> Nimble.Matcher<Any>
+public func beAnInstanceOf(_ expectedClass: Swift.AnyClass) -> Nimble.Matcher<ObjectiveC.NSObject>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beAnInstanceOfMatcher(_ expected: Swift.AnyClass) -> Nimble.NMBMatcher
+}
+extension Swift.Int8 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.UInt8 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Int16 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.UInt16 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Int32 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.UInt32 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Int64 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.UInt64 : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Float : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Double : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.Int : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension Swift.UInt : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.Bool)
+  public typealias BooleanLiteralType = Swift.Bool
+}
+public func beTrue() -> Nimble.Matcher<Swift.Bool>
+public func beFalse() -> Nimble.Matcher<Swift.Bool>
+public func beTruthy<T>() -> Nimble.Matcher<T> where T : Swift.Equatable, T : Swift.ExpressibleByBooleanLiteral
+public func beFalsy<T>() -> Nimble.Matcher<T> where T : Swift.Equatable, T : Swift.ExpressibleByBooleanLiteral
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beTruthyMatcher() -> Nimble.NMBMatcher
+  @objc dynamic public class func beFalsyMatcher() -> Nimble.NMBMatcher
+  @objc dynamic public class func beTrueMatcher() -> Nimble.NMBMatcher
+  @objc dynamic public class func beFalseMatcher() -> Nimble.NMBMatcher
+}
+@objc public class NMBExpectation : ObjectiveC.NSObject {
+  @objc public init(actualBlock: @escaping () -> ObjectiveC.NSObject?, negative: Swift.Bool, file: Nimble.FileString, line: Swift.UInt)
+  @objc public var withTimeout: (Foundation.TimeInterval) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var to: (Nimble.NMBMatcher) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var toWithDescription: (Nimble.NMBMatcher, Swift.String) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var toNot: (Nimble.NMBMatcher) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var toNotWithDescription: (Nimble.NMBMatcher, Swift.String) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var notTo: (Nimble.NMBMatcher) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var notToWithDescription: (Nimble.NMBMatcher, Swift.String) -> Nimble.NMBExpectation {
+    @objc get
+  }
+  @objc public var toEventually: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toEventuallyWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toEventuallyNot: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toEventuallyNotWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toNotEventually: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toNotEventuallyWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toNever: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toNeverWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var neverTo: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var neverToWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toAlways: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var toAlwaysWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public var alwaysTo: (Nimble.NMBMatcher) -> Swift.Void {
+    @objc get
+  }
+  @objc public var alwaysToWithDescription: (Nimble.NMBMatcher, Swift.String) -> Swift.Void {
+    @objc get
+  }
+  @objc public class func failWithMessage(_ message: Swift.String, file: Nimble.FileString, line: Swift.UInt)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class NMBWait : ObjectiveC.NSObject {
+  @objc public class func until(timeout: Foundation.TimeInterval, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+  public class func until(timeout: Nimble.NimbleTimeInterval, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+  public class func throwableUntil(timeout: Nimble.NimbleTimeInterval, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) throws -> Swift.Void)
+  @objc(untilFile:line:action:) public class func until(_ file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+#if compiler(>=5.3) && $NoAsyncAvailability
+@available(*, noasync, message: "the sync variant of `waitUntil` does not work in async contexts. Use the async variant as a drop-in replacement")
+public func waitUntil(timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+#else
+public func waitUntil(timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void)
+#endif
+public func allPass<S>(_ passFunc: @escaping (S.Element) throws -> Swift.Bool) -> Nimble.Matcher<S> where S : Swift.Sequence
+public func allPass<S>(_ passName: Swift.String, _ passFunc: @escaping (S.Element) throws -> Swift.Bool) -> Nimble.Matcher<S> where S : Swift.Sequence
+public func allPass<S>(_ elementMatcher: Nimble.Matcher<S.Element>) -> Nimble.Matcher<S> where S : Swift.Sequence
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func allPassMatcher(_ matcher: Nimble.NMBMatcher) -> Nimble.NMBMatcher
+}
+public func beAKindOf<T>(_ expectedType: T.Type) -> Nimble.Matcher<Any>
+public func beAKindOf(_ expectedClass: Swift.AnyClass) -> Nimble.Matcher<ObjectiveC.NSObject>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beAKindOfMatcher(_ expected: Swift.AnyClass) -> Nimble.NMBMatcher
+}
+public struct AssertionRecord : Swift.CustomStringConvertible {
+  public let success: Swift.Bool
+  public let message: Nimble.FailureMessage
+  public let location: Nimble.SourceLocation
+  public var description: Swift.String {
+    get
+  }
+}
+public class AssertionRecorder : Nimble.AssertionHandler {
+  public var assertions: [Nimble.AssertionRecord]
+  public init()
+  public func assert(_ assertion: Swift.Bool, message: Nimble.FailureMessage, location: Nimble.SourceLocation)
+  @objc deinit
+}
+public func withAssertionHandler(_ tempAssertionHandler: Nimble.AssertionHandler, file: Nimble.FileString = #file, line: Swift.UInt = #line, closure: () throws -> Swift.Void)
+public func gatherExpectations(silently: Swift.Bool = false, closure: () -> Swift.Void) -> [Nimble.AssertionRecord]
+public func gatherFailingExpectations(silently: Swift.Bool = false, closure: () -> Swift.Void) -> [Nimble.AssertionRecord]
+public func containElementSatisfying<S>(_ matcher: @escaping ((S.Element) -> Swift.Bool), _ matcherDescription: Swift.String = "") -> Nimble.Matcher<S> where S : Swift.Sequence
+#if compiler(>=5.3) && $AsyncAwait
+public func containElementSatisfying<S>(_ matcher: @escaping ((S.Element) async -> Swift.Bool), _ matcherDescription: Swift.String = "") -> Nimble.AsyncMatcher<S> where S : Swift.Sequence
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func containElementSatisfyingMatcher(_ matcher: @escaping ((ObjectiveC.NSObject) -> Swift.Bool)) -> Nimble.NMBMatcher
+}
+public func beVoid() -> Nimble.Matcher<()>
+public func == (lhs: Nimble.SyncExpectation<()>, rhs: ())
+#if compiler(>=5.3) && $AsyncAwait
+public func == (lhs: Nimble.AsyncExpectation<()>, rhs: ()) async
+#endif
+public func != (lhs: Nimble.SyncExpectation<()>, rhs: ())
+#if compiler(>=5.3) && $AsyncAwait
+public func != (lhs: Nimble.AsyncExpectation<()>, rhs: ()) async
+#endif
+public func elementsEqual<Seq1, Seq2>(_ expectedValue: Seq2?) -> Nimble.Matcher<Seq1> where Seq1 : Swift.Sequence, Seq2 : Swift.Sequence, Seq1.Element : Swift.Equatable, Seq1.Element == Seq2.Element
+public func elementsEqual<Seq1, Seq2>(_ expectedValue: Seq2?, by areEquivalent: @escaping (Seq1.Element, Seq2.Element) -> Swift.Bool) -> Nimble.Matcher<Seq1> where Seq1 : Swift.Sequence, Seq2 : Swift.Sequence
+public func postNotifications<Out>(_ matcher: Nimble.Matcher<[Foundation.Notification]>, from center: Foundation.NotificationCenter = .default) -> Nimble.Matcher<Out>
+public func match(_ expectedValue: Swift.String?) -> Nimble.Matcher<Swift.String>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func matchMatcher(_ expected: Foundation.NSString) -> Nimble.NMBMatcher
+}
+public func throwError<Out>() -> Nimble.Matcher<Out>
+public func throwError<T, Out>(_ error: T, closure: ((Swift.Error) -> Swift.Void)? = nil) -> Nimble.Matcher<Out> where T : Swift.Error
+public func throwError<T, Out>(_ error: T, closure: ((T) -> Swift.Void)? = nil) -> Nimble.Matcher<Out> where T : Swift.Equatable, T : Swift.Error
+public func throwError<T, Out>(errorType: T.Type, closure: ((T) -> Swift.Void)? = nil) -> Nimble.Matcher<Out> where T : Swift.Error
+public func throwError<Out>(closure: @escaping ((Swift.Error) -> Swift.Void)) -> Nimble.Matcher<Out>
+public func throwError<T, Out>(closure: @escaping ((T) -> Swift.Void)) -> Nimble.Matcher<Out> where T : Swift.Error
+public func beginWith<Seq1, Seq2>(prefix expectedPrefix: Seq2?) -> Nimble.Matcher<Seq1> where Seq1 : Swift.Sequence, Seq2 : Swift.Sequence, Seq1.Element : Swift.Equatable, Seq1.Element == Seq2.Element
+public func beginWith<Seq1, Seq2>(prefix expectedPrefix: Seq2?, by areEquivalent: @escaping (Seq1.Element, Seq2.Element) -> Swift.Bool) -> Nimble.Matcher<Seq1> where Seq1 : Swift.Sequence, Seq2 : Swift.Sequence
+public func equal<T>(_ expectedValue: T) -> Nimble.Matcher<T> where T : Swift.Equatable
+public func equal<T>(_ expectedValue: [T?]) -> Nimble.Matcher<[T?]> where T : Swift.Equatable
+public func equal<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Swift.Equatable
+public func equal<T>(_ expectedValue: Swift.Set<T>) -> Nimble.Matcher<Swift.Set<T>> where T : Swift.Hashable
+public func equal<T>(_ expectedValue: Swift.Set<T>?) -> Nimble.Matcher<Swift.Set<T>> where T : Swift.Hashable
+public func equal<T>(_ expectedValue: Swift.Set<T>) -> Nimble.Matcher<Swift.Set<T>> where T : Swift.Comparable, T : Swift.Hashable
+public func equal<T>(_ expectedValue: Swift.Set<T>?) -> Nimble.Matcher<Swift.Set<T>> where T : Swift.Comparable, T : Swift.Hashable
+public func equal<K, V>(_ expectedValue: [K : V?]) -> Nimble.Matcher<[K : V]> where K : Swift.Hashable, V : Swift.Equatable
+public func == <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Swift.Equatable
+public func == <T>(lhs: Nimble.SyncExpectation<T>, rhs: T?) where T : Swift.Equatable
+public func != <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Swift.Equatable
+public func != <T>(lhs: Nimble.SyncExpectation<T>, rhs: T?) where T : Swift.Equatable
+public func == <T>(lhs: Nimble.SyncExpectation<[T]>, rhs: [T]?) where T : Swift.Equatable
+public func != <T>(lhs: Nimble.SyncExpectation<[T]>, rhs: [T]?) where T : Swift.Equatable
+public func == <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) where T : Swift.Hashable
+public func == <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) where T : Swift.Hashable
+public func != <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) where T : Swift.Hashable
+public func != <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) where T : Swift.Hashable
+public func == <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) where T : Swift.Comparable, T : Swift.Hashable
+public func == <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) where T : Swift.Comparable, T : Swift.Hashable
+public func != <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) where T : Swift.Comparable, T : Swift.Hashable
+public func != <T>(lhs: Nimble.SyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) where T : Swift.Comparable, T : Swift.Hashable
+public func == <T, C>(lhs: Nimble.SyncExpectation<[T : C]>, rhs: [T : C]?) where T : Swift.Hashable, C : Swift.Equatable
+public func != <T, C>(lhs: Nimble.SyncExpectation<[T : C]>, rhs: [T : C]?) where T : Swift.Hashable, C : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T?) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T?) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<[T]>, rhs: [T]?) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<[T]>, rhs: [T]?) async where T : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) async where T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) async where T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) async where T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) async where T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) async where T : Swift.Comparable, T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) async where T : Swift.Comparable, T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>) async where T : Swift.Comparable, T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T>(lhs: Nimble.AsyncExpectation<Swift.Set<T>>, rhs: Swift.Set<T>?) async where T : Swift.Comparable, T : Swift.Hashable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T, C>(lhs: Nimble.AsyncExpectation<[T : C]>, rhs: [T : C]?) async where T : Swift.Hashable, C : Swift.Equatable
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T, C>(lhs: Nimble.AsyncExpectation<[T : C]>, rhs: [T : C]?) async where T : Swift.Hashable, C : Swift.Equatable
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func equalMatcher(_ expected: ObjectiveC.NSObject) -> Nimble.NMBMatcher
+}
+public func map<T, U>(_ transform: @escaping (T) throws -> U, _ matcher: Nimble.Matcher<U>) -> Nimble.Matcher<T>
+#if compiler(>=5.3) && $AsyncAwait
+public func map<T, U>(_ transform: @escaping (T) async throws -> U, _ matcher: some AsyncableMatcher<U>) -> Nimble.AsyncMatcher<T>
+#endif
+public func equal<T1, T2>(_ expectedValue: (T1, T2)?) -> Nimble.Matcher<(T1, T2)> where T1 : Swift.Equatable, T2 : Swift.Equatable
+public func == <T1, T2>(lhs: Nimble.SyncExpectation<(T1, T2)>, rhs: (T1, T2)?) where T1 : Swift.Equatable, T2 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2>(lhs: Nimble.AsyncExpectation<(T1, T2)>, rhs: (T1, T2)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable
+#endif
+public func != <T1, T2>(lhs: Nimble.SyncExpectation<(T1, T2)>, rhs: (T1, T2)?) where T1 : Swift.Equatable, T2 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2>(lhs: Nimble.AsyncExpectation<(T1, T2)>, rhs: (T1, T2)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3>(_ expectedValue: (T1, T2, T3)?) -> Nimble.Matcher<(T1, T2, T3)> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+public func == <T1, T2, T3>(lhs: Nimble.SyncExpectation<(T1, T2, T3)>, rhs: (T1, T2, T3)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3>(lhs: Nimble.AsyncExpectation<(T1, T2, T3)>, rhs: (T1, T2, T3)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#endif
+public func != <T1, T2, T3>(lhs: Nimble.SyncExpectation<(T1, T2, T3)>, rhs: (T1, T2, T3)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3>(lhs: Nimble.AsyncExpectation<(T1, T2, T3)>, rhs: (T1, T2, T3)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4>(_ expectedValue: (T1, T2, T3, T4)?) -> Nimble.Matcher<(T1, T2, T3, T4)> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+public func == <T1, T2, T3, T4>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4)>, rhs: (T1, T2, T3, T4)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4)>, rhs: (T1, T2, T3, T4)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4)>, rhs: (T1, T2, T3, T4)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4)>, rhs: (T1, T2, T3, T4)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4, T5>(_ expectedValue: (T1, T2, T3, T4, T5)?) -> Nimble.Matcher<(T1, T2, T3, T4, T5)> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+public func == <T1, T2, T3, T4, T5>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4, T5)>, rhs: (T1, T2, T3, T4, T5)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4, T5>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4, T5)>, rhs: (T1, T2, T3, T4, T5)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4, T5>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4, T5)>, rhs: (T1, T2, T3, T4, T5)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4, T5>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4, T5)>, rhs: (T1, T2, T3, T4, T5)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4, T5, T6>(_ expectedValue: (T1, T2, T3, T4, T5, T6)?) -> Nimble.Matcher<(T1, T2, T3, T4, T5, T6)> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+public func == <T1, T2, T3, T4, T5, T6>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4, T5, T6)>, rhs: (T1, T2, T3, T4, T5, T6)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4, T5, T6>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4, T5, T6)>, rhs: (T1, T2, T3, T4, T5, T6)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4, T5, T6>(lhs: Nimble.SyncExpectation<(T1, T2, T3, T4, T5, T6)>, rhs: (T1, T2, T3, T4, T5, T6)?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4, T5, T6>(lhs: Nimble.AsyncExpectation<(T1, T2, T3, T4, T5, T6)>, rhs: (T1, T2, T3, T4, T5, T6)?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#endif
+public func beWithin<T>(_ range: Swift.Range<T>) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func beWithin<T>(_ range: Swift.ClosedRange<T>) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func beLessThan<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func < <V>(lhs: Nimble.SyncExpectation<V>, rhs: V) where V : Swift.Comparable
+#if compiler(>=5.3) && $AsyncAwait
+public func < <V>(lhs: Nimble.AsyncExpectation<V>, rhs: V) async where V : Swift.Comparable
+#endif
+public func beLessThan<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Nimble.NMBComparable
+public func < <V>(lhs: Nimble.SyncExpectation<V>, rhs: V?) where V : Nimble.NMBComparable
+#if compiler(>=5.3) && $AsyncAwait
+public func < <V>(lhs: Nimble.AsyncExpectation<V>, rhs: V?) async where V : Nimble.NMBComparable
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beLessThanMatcher(_ expected: Nimble.NMBComparable?) -> Nimble.NMBMatcher
+}
+public func beGreaterThan<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func > <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Swift.Comparable
+#if compiler(>=5.3) && $AsyncAwait
+public func > <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Swift.Comparable
+#endif
+public func beGreaterThan<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Nimble.NMBComparable
+public func > <T>(lhs: Nimble.SyncExpectation<T>, rhs: T?) where T : Nimble.NMBComparable
+#if compiler(>=5.3) && $AsyncAwait
+public func > <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T?) async where T : Nimble.NMBComparable
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beGreaterThanMatcher(_ expected: Nimble.NMBComparable?) -> Nimble.NMBMatcher
+}
+public protocol AssertionHandler {
+  func assert(_ assertion: Swift.Bool, message: Nimble.FailureMessage, location: Nimble.SourceLocation)
+}
+public var NimbleAssertionHandler: Nimble.AssertionHandler
+#if compiler(>=5.3) && $AsyncAwait
+public func withAssertionHandler(_ tempAssertionHandler: Nimble.AssertionHandler, file: Nimble.FileString = #file, line: Swift.UInt = #line, closure: () async throws -> Swift.Void) async
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func gatherExpectations(silently: Swift.Bool = false, closure: () async -> Swift.Void) async -> [Nimble.AssertionRecord]
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func gatherFailingExpectations(silently: Swift.Bool = false, closure: () async -> Swift.Void) async -> [Nimble.AssertionRecord]
+#endif
+public func equal<T1, T2>(_ expectedValue: [(T1, T2)]?) -> Nimble.Matcher<[(T1, T2)]> where T1 : Swift.Equatable, T2 : Swift.Equatable
+public func == <T1, T2>(lhs: Nimble.SyncExpectation<[(T1, T2)]>, rhs: [(T1, T2)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2>(lhs: Nimble.AsyncExpectation<[(T1, T2)]>, rhs: [(T1, T2)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable
+#endif
+public func != <T1, T2>(lhs: Nimble.SyncExpectation<[(T1, T2)]>, rhs: [(T1, T2)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2>(lhs: Nimble.AsyncExpectation<[(T1, T2)]>, rhs: [(T1, T2)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3>(_ expectedValue: [(T1, T2, T3)]?) -> Nimble.Matcher<[(T1, T2, T3)]> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+public func == <T1, T2, T3>(lhs: Nimble.SyncExpectation<[(T1, T2, T3)]>, rhs: [(T1, T2, T3)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3)]>, rhs: [(T1, T2, T3)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#endif
+public func != <T1, T2, T3>(lhs: Nimble.SyncExpectation<[(T1, T2, T3)]>, rhs: [(T1, T2, T3)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3)]>, rhs: [(T1, T2, T3)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4>(_ expectedValue: [(T1, T2, T3, T4)]?) -> Nimble.Matcher<[(T1, T2, T3, T4)]> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+public func == <T1, T2, T3, T4>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4)]>, rhs: [(T1, T2, T3, T4)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4)]>, rhs: [(T1, T2, T3, T4)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4)]>, rhs: [(T1, T2, T3, T4)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4)]>, rhs: [(T1, T2, T3, T4)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4, T5>(_ expectedValue: [(T1, T2, T3, T4, T5)]?) -> Nimble.Matcher<[(T1, T2, T3, T4, T5)]> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+public func == <T1, T2, T3, T4, T5>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4, T5)]>, rhs: [(T1, T2, T3, T4, T5)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4, T5>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4, T5)]>, rhs: [(T1, T2, T3, T4, T5)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4, T5>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4, T5)]>, rhs: [(T1, T2, T3, T4, T5)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4, T5>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4, T5)]>, rhs: [(T1, T2, T3, T4, T5)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable
+#endif
+public func equal<T1, T2, T3, T4, T5, T6>(_ expectedValue: [(T1, T2, T3, T4, T5, T6)]?) -> Nimble.Matcher<[(T1, T2, T3, T4, T5, T6)]> where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+public func == <T1, T2, T3, T4, T5, T6>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4, T5, T6)]>, rhs: [(T1, T2, T3, T4, T5, T6)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func == <T1, T2, T3, T4, T5, T6>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4, T5, T6)]>, rhs: [(T1, T2, T3, T4, T5, T6)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#endif
+public func != <T1, T2, T3, T4, T5, T6>(lhs: Nimble.SyncExpectation<[(T1, T2, T3, T4, T5, T6)]>, rhs: [(T1, T2, T3, T4, T5, T6)]?) where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#if compiler(>=5.3) && $AsyncAwait
+public func != <T1, T2, T3, T4, T5, T6>(lhs: Nimble.AsyncExpectation<[(T1, T2, T3, T4, T5, T6)]>, rhs: [(T1, T2, T3, T4, T5, T6)]?) async where T1 : Swift.Equatable, T2 : Swift.Equatable, T3 : Swift.Equatable, T4 : Swift.Equatable, T5 : Swift.Equatable, T6 : Swift.Equatable
+#endif
+public func matchError<T>(_ error: T) -> Nimble.Matcher<Swift.Error> where T : Swift.Error
+public func matchError<T>(_ error: T) -> Nimble.Matcher<Swift.Error> where T : Swift.Equatable, T : Swift.Error
+public func matchError<T>(_ errorType: T.Type) -> Nimble.Matcher<Swift.Error> where T : Swift.Error
+public func raiseException<Out>(named: Foundation.NSExceptionName? = nil, reason: Swift.String? = nil, userInfo: Foundation.NSDictionary? = nil, closure: ((Foundation.NSException) -> Swift.Void)? = nil) -> Nimble.Matcher<Out>
+public func raiseException<Out>(named: Swift.String?, reason: Swift.String? = nil, userInfo: Foundation.NSDictionary? = nil, closure: ((Foundation.NSException) -> Swift.Void)? = nil) -> Nimble.Matcher<Out>
+@objc @_hasMissingDesignatedInitializers public class NMBObjCRaiseExceptionMatcher : Nimble.NMBMatcher {
+  @objc public var named: (_ name: Swift.String) -> Nimble.NMBObjCRaiseExceptionMatcher {
+    @objc get
+  }
+  @objc public var reason: (_ reason: Swift.String?) -> Nimble.NMBObjCRaiseExceptionMatcher {
+    @objc get
+  }
+  @objc public var userInfo: (_ userInfo: Foundation.NSDictionary?) -> Nimble.NMBObjCRaiseExceptionMatcher {
+    @objc get
+  }
+  @objc public var satisfyingBlock: (_ block: ((Foundation.NSException) -> Swift.Void)?) -> Nimble.NMBObjCRaiseExceptionMatcher {
+    @objc get
+  }
+  @objc deinit
+}
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func raiseExceptionMatcher() -> Nimble.NMBObjCRaiseExceptionMatcher
+}
+public protocol NMBContainer {
+  func contains(_ anObject: Any) -> Swift.Bool
+}
+extension Foundation.NSArray : Nimble.NMBContainer {
+}
+extension Foundation.NSSet : Nimble.NMBContainer {
+}
+public protocol NMBCollection {
+  var count: Swift.Int { get }
+}
+extension Foundation.NSHashTable : Nimble.NMBCollection {
+}
+extension Foundation.NSMapTable : Nimble.NMBCollection {
+}
+extension Foundation.NSSet : Nimble.NMBCollection {
+}
+extension Foundation.NSIndexSet : Nimble.NMBCollection {
+}
+extension Foundation.NSDictionary : Nimble.NMBCollection {
+}
+public protocol NMBOrderedCollection : Nimble.NMBCollection {
+  func object(at index: Swift.Int) -> Any
+}
+extension Foundation.NSArray : Nimble.NMBOrderedCollection {
+}
+public protocol NMBDoubleConvertible {
+  var doubleValue: Swift.CDouble { get }
+}
+extension Foundation.NSNumber : Nimble.NMBDoubleConvertible {
+}
+extension Foundation.Date : Nimble.NMBDoubleConvertible {
+  public var doubleValue: Swift.CDouble {
+    get
+  }
+}
+extension Foundation.NSDate : Nimble.NMBDoubleConvertible {
+  public var doubleValue: Swift.CDouble {
+    get
+  }
+}
+extension Foundation.Date : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+extension Foundation.NSDate : Nimble.TestOutputStringConvertible {
+  public var testDescription: Swift.String {
+    get
+  }
+}
+@objc public protocol NMBComparable {
+  @objc func NMB_compare(_ otherObject: Nimble.NMBComparable!) -> Foundation.ComparisonResult
+}
+extension Foundation.NSNumber : Nimble.NMBComparable {
+  @objc dynamic public func NMB_compare(_ otherObject: Nimble.NMBComparable!) -> Foundation.ComparisonResult
+}
+extension Foundation.NSString : Nimble.NMBComparable {
+  @objc dynamic public func NMB_compare(_ otherObject: Nimble.NMBComparable!) -> Foundation.ComparisonResult
+}
+public func contain<S>(_ items: S.Element...) -> Nimble.Matcher<S> where S : Swift.Sequence, S.Element : Swift.Equatable
+public func contain<S>(_ items: [S.Element]) -> Nimble.Matcher<S> where S : Swift.Sequence, S.Element : Swift.Equatable
+public func contain<S>(_ items: S.Element...) -> Nimble.Matcher<S> where S : Swift.SetAlgebra, S.Element : Swift.Equatable
+public func contain<S>(_ items: [S.Element]) -> Nimble.Matcher<S> where S : Swift.SetAlgebra, S.Element : Swift.Equatable
+public func contain<S>(_ items: S.Element...) -> Nimble.Matcher<S> where S : Swift.Sequence, S : Swift.SetAlgebra, S.Element : Swift.Equatable
+public func contain<S>(_ items: [S.Element]) -> Nimble.Matcher<S> where S : Swift.Sequence, S : Swift.SetAlgebra, S.Element : Swift.Equatable
+public func contain(_ substrings: Swift.String...) -> Nimble.Matcher<Swift.String>
+public func contain(_ substrings: [Swift.String]) -> Nimble.Matcher<Swift.String>
+public func contain(_ substrings: Foundation.NSString...) -> Nimble.Matcher<Foundation.NSString>
+public func contain(_ substrings: [Foundation.NSString]) -> Nimble.Matcher<Foundation.NSString>
+public func contain(_ items: Any?...) -> Nimble.Matcher<Nimble.NMBContainer>
+public func contain(_ items: [Any?]) -> Nimble.Matcher<Nimble.NMBContainer>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func containMatcher(_ expected: [ObjectiveC.NSObject]) -> Nimble.NMBMatcher
+}
+public enum ToSucceedResult {
+  case succeeded
+  case failed(reason: Swift.String)
+}
+public func succeed() -> Nimble.Matcher<Nimble.ToSucceedResult>
+extension Nimble.SyncExpectation {
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.SyncExpectation<Value>
+  #endif
+}
+extension Nimble.AsyncExpectation {
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async -> Nimble.AsyncExpectation<Value>
+  #endif
+}
+#if compiler(>=5.3) && $AsyncAwait
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @escaping () async throws -> T?) -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: () -> (() async throws -> T)) -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: () -> (() async throws -> T?)) -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expect(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: () -> (() async throws -> Swift.Void)) -> Nimble.AsyncExpectation<Swift.Void>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expecta<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () async throws -> T?) async -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expecta<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() async throws -> T)) async -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expecta<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() async throws -> T?)) async -> Nimble.AsyncExpectation<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func expecta(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() async throws -> Swift.Void)) async -> Nimble.AsyncExpectation<Swift.Void>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func waitUntil(timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) async -> Swift.Void) async
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func waitUntil(timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, file: Nimble.FileString = #file, line: Swift.UInt = #line, action: @escaping (@escaping () -> Swift.Void) -> Swift.Void) async
+#endif
+public func beGreaterThanOrEqualTo<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Swift.Comparable
+public func >= <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Swift.Comparable
+#if compiler(>=5.3) && $AsyncAwait
+public func >= <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Swift.Comparable
+#endif
+public func beGreaterThanOrEqualTo<T>(_ expectedValue: T?) -> Nimble.Matcher<T> where T : Nimble.NMBComparable
+public func >= <T>(lhs: Nimble.SyncExpectation<T>, rhs: T) where T : Nimble.NMBComparable
+#if compiler(>=5.3) && $AsyncAwait
+public func >= <T>(lhs: Nimble.AsyncExpectation<T>, rhs: T) async where T : Nimble.NMBComparable
+#endif
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beGreaterThanOrEqualToMatcher(_ expected: Nimble.NMBComparable?) -> Nimble.NMBMatcher
+}
+indirect public enum ExpectationMessage {
+  case expectedActualValueTo(Swift.String)
+  case expectedCustomValueTo(Swift.String, actual: Swift.String)
+  case expectedTo(Swift.String)
+  case fail(Swift.String)
+  case prepends(Swift.String, Nimble.ExpectationMessage)
+  case appends(Nimble.ExpectationMessage, Swift.String)
+  case details(Nimble.ExpectationMessage, Swift.String)
+  public var expectedMessage: Swift.String {
+    get
+  }
+  public func appended(message: Swift.String) -> Nimble.ExpectationMessage
+  public func appendedBeNilHint() -> Nimble.ExpectationMessage
+  public func appended(details: Swift.String) -> Nimble.ExpectationMessage
+  public func replacedExpectation(_ f: @escaping (Nimble.ExpectationMessage) -> Nimble.ExpectationMessage) -> Nimble.ExpectationMessage
+  public func wrappedExpectation(before: Swift.String, after: Swift.String) -> Nimble.ExpectationMessage
+  public func prepended(expectation message: Swift.String) -> Nimble.ExpectationMessage
+  public func toString(actual: Swift.String, expected: Swift.String = "expected", to: Swift.String = "to") -> Swift.String
+}
+@objc @_hasMissingDesignatedInitializers public class NMBExpectationMessage : ObjectiveC.NSObject {
+  public init(expectedTo message: Swift.String)
+  public init(expectedActualValueTo message: Swift.String)
+  public init(expectedActualValueTo message: Swift.String, customActualValue actual: Swift.String)
+  public init(fail message: Swift.String)
+  public init(prepend message: Swift.String, child: Nimble.NMBExpectationMessage)
+  public init(appendedMessage message: Swift.String, child: Nimble.NMBExpectationMessage)
+  public init(prependedMessage message: Swift.String, child: Nimble.NMBExpectationMessage)
+  public init(details message: Swift.String, child: Nimble.NMBExpectationMessage)
+  public func appendedBeNilHint() -> Nimble.NMBExpectationMessage
+  public func toSwift() -> Nimble.ExpectationMessage
+  @objc deinit
+}
+public func beginWith<S>(_ startingElement: S.Element) -> Nimble.Matcher<S> where S : Swift.Sequence, S.Element : Swift.Equatable
+public func beginWith(_ startingElement: Any) -> Nimble.Matcher<Nimble.NMBOrderedCollection>
+public func beginWith(_ startingSubstring: Swift.String) -> Nimble.Matcher<Swift.String>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beginWithMatcher(_ expected: Any) -> Nimble.NMBMatcher
+}
+public func beIdenticalTo(_ expected: Swift.AnyObject?) -> Nimble.Matcher<Swift.AnyObject>
+public func === (lhs: Nimble.SyncExpectation<Swift.AnyObject>, rhs: Swift.AnyObject?)
+#if compiler(>=5.3) && $AsyncAwait
+public func === (lhs: Nimble.AsyncExpectation<Swift.AnyObject>, rhs: Swift.AnyObject?) async
+#endif
+public func !== (lhs: Nimble.SyncExpectation<Swift.AnyObject>, rhs: Swift.AnyObject?)
+#if compiler(>=5.3) && $AsyncAwait
+public func !== (lhs: Nimble.AsyncExpectation<Swift.AnyObject>, rhs: Swift.AnyObject?) async
+#endif
+public func be(_ expected: Swift.AnyObject?) -> Nimble.Matcher<Swift.AnyObject>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beIdenticalToMatcher(_ expected: ObjectiveC.NSObject?) -> Nimble.NMBMatcher
+}
+public func beEmpty<S>() -> Nimble.Matcher<S> where S : Swift.Sequence
+public func beEmpty<S>() -> Nimble.Matcher<S> where S : Swift.SetAlgebra
+public func beEmpty<S>() -> Nimble.Matcher<S> where S : Swift.Sequence, S : Swift.SetAlgebra
+public func beEmpty() -> Nimble.Matcher<Swift.String>
+public func beEmpty() -> Nimble.Matcher<Foundation.NSString>
+public func beEmpty() -> Nimble.Matcher<Foundation.NSDictionary>
+public func beEmpty() -> Nimble.Matcher<Foundation.NSArray>
+public func beEmpty() -> Nimble.Matcher<Nimble.NMBCollection>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beEmptyMatcher() -> Nimble.NMBMatcher
+}
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () throws -> T?) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T)) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T?)) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func require(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> Swift.Void)) -> Nimble.SyncRequirement<Swift.Void>
+@discardableResult
+public func requires<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () throws -> T?) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func requires<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T)) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func requires<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T?)) -> Nimble.SyncRequirement<T>
+@discardableResult
+public func requires(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> Swift.Void)) -> Nimble.SyncRequirement<Swift.Void>
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @escaping () async throws -> T?) -> Nimble.AsyncRequirement<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: () -> (() async throws -> T)) -> Nimble.AsyncRequirement<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func require<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: () -> (() async throws -> T?)) -> Nimble.AsyncRequirement<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func requirea<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () async throws -> T?) async -> Nimble.AsyncRequirement<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func requirea<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() async throws -> T)) async -> Nimble.AsyncRequirement<T>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func requirea<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() async throws -> T?)) async -> Nimble.AsyncRequirement<T>
+#endif
+@discardableResult
+public func unwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () throws -> T?) throws -> T
+@discardableResult
+public func unwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T?)) throws -> T
+@discardableResult
+public func unwraps<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () throws -> T?) throws -> T
+@discardableResult
+public func unwraps<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() throws -> T?)) throws -> T
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func unwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @escaping () async throws -> T?) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func unwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: () -> (() async throws -> T?)) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func unwrapa<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure @escaping () async throws -> T?) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func unwrapa<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, customError: Swift.Error? = nil, _ expression: @autoclosure () -> (() async throws -> T?)) async throws -> T
+#endif
+public func satisfyAllOf<T>(_ matchers: Nimble.Matcher<T>...) -> Nimble.Matcher<T>
+public func satisfyAllOf<T>(_ matchers: [Nimble.Matcher<T>]) -> Nimble.Matcher<T>
+public func && <T>(left: Nimble.Matcher<T>, right: Nimble.Matcher<T>) -> Nimble.Matcher<T>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func satisfyAllOfMatcher(_ matchers: [Nimble.NMBMatcher]) -> Nimble.NMBMatcher
+}
+public func beNil<T>() -> Nimble.Matcher<T>
+public struct ExpectationNil : Swift.ExpressibleByNilLiteral {
+  public init(nilLiteral: ())
+}
+extension Nimble.SyncExpectation {
+  public static func == (lhs: Nimble.SyncExpectation<Value>, rhs: Nimble.ExpectationNil)
+  public static func != (lhs: Nimble.SyncExpectation<Value>, rhs: Nimble.ExpectationNil)
+}
+extension Nimble.AsyncExpectation {
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func == (lhs: Nimble.AsyncExpectation<Value>, rhs: Nimble.ExpectationNil) async
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func != (lhs: Nimble.AsyncExpectation<Value>, rhs: Nimble.ExpectationNil) async
+  #endif
+}
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func beNilMatcher() -> Nimble.NMBMatcher
+}
+public func throwAssertion<Out>() -> Nimble.Matcher<Out>
+public func endWith<S>(_ endingElement: S.Element) -> Nimble.Matcher<S> where S : Swift.Sequence, S.Element : Swift.Equatable
+public func endWith(_ endingElement: Any) -> Nimble.Matcher<Nimble.NMBOrderedCollection>
+public func endWith(_ endingSubstring: Swift.String) -> Nimble.Matcher<Swift.String>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func endWithMatcher(_ expected: Any) -> Nimble.NMBMatcher
+}
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () throws -> T?) -> Nimble.SyncExpectation<T>
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T)) -> Nimble.SyncExpectation<T>
+public func expect<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T?)) -> Nimble.SyncExpectation<T>
+public func expect(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> Swift.Void)) -> Nimble.SyncExpectation<Swift.Void>
+public func expects<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () throws -> T?) -> Nimble.SyncExpectation<T>
+public func expects<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T)) -> Nimble.SyncExpectation<T>
+public func expects<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T?)) -> Nimble.SyncExpectation<T>
+public func expects(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> Swift.Void)) -> Nimble.SyncExpectation<Swift.Void>
+public func fail(_ message: Swift.String, location: Nimble.SourceLocation)
+public func fail(_ message: Swift.String, file: Nimble.FileString = #file, line: Swift.UInt = #line)
+public func fail(_ file: Nimble.FileString = #file, line: Swift.UInt = #line)
+public func satisfyAnyOf<T>(_ matchers: Nimble.Matcher<T>...) -> Nimble.Matcher<T>
+public func satisfyAnyOf<T>(_ matchers: [Nimble.Matcher<T>]) -> Nimble.Matcher<T>
+public func || <T>(left: Nimble.Matcher<T>, right: Nimble.Matcher<T>) -> Nimble.Matcher<T>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func satisfyAnyOfMatcher(_ matchers: [Nimble.NMBMatcher]) -> Nimble.NMBMatcher
+}
+#if compiler(>=5.3) && $AsyncAwait
+public func allPass<S>(_ passFunc: @escaping (S.Element) async throws -> Swift.Bool) -> Nimble.AsyncMatcher<S> where S : Swift.Sequence
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func allPass<S>(_ passName: Swift.String, _ passFunc: @escaping (S.Element) async throws -> Swift.Bool) -> Nimble.AsyncMatcher<S> where S : Swift.Sequence
+#endif
+public func allPass<S>(_ elementMatcher: Nimble.AsyncMatcher<S.Element>) -> Nimble.AsyncMatcher<S> where S : Swift.Sequence
+public struct RequireError : Swift.Error, Foundation.CustomNSError {
+  public var errorUserInfo: [Swift.String : Any] {
+    get
+  }
+}
+public struct SyncRequirement<Value> {
+  public let expression: Nimble.Expression<Value>
+  public let customError: Swift.Error?
+  public var location: Nimble.SourceLocation {
+    get
+  }
+  public init(expression: Nimble.Expression<Value>, customError: Swift.Error?)
+  public func verify(_ pass: Swift.Bool, _ message: Nimble.FailureMessage, _ value: Value?) throws -> Value
+  @discardableResult
+  public func to(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) throws -> Value
+  @discardableResult
+  public func toNot(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) throws -> Value
+  @discardableResult
+  public func notTo(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) throws -> Value
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+}
+public struct AsyncRequirement<Value> {
+  public let expression: Nimble.AsyncExpression<Value>
+  public let customError: Swift.Error?
+  public var location: Nimble.SourceLocation {
+    get
+  }
+  public init(expression: Nimble.AsyncExpression<Value>, customError: Swift.Error?)
+  public func verify(_ pass: Swift.Bool, _ message: Nimble.FailureMessage, _ value: Value?) throws -> Value
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.Matcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func to(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNot(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func notTo(_ matcher: Nimble.AsyncMatcher<Value>, description: Swift.String? = nil) async throws -> Value
+  #endif
+}
+public struct Expression<Value> {
+  public let location: Nimble.SourceLocation
+  public let isClosure: Swift.Bool
+  public init(expression: @escaping () throws -> Value?, location: Nimble.SourceLocation, isClosure: Swift.Bool = true)
+  public init(memoizedExpression: @escaping (Swift.Bool) throws -> Value?, location: Nimble.SourceLocation, withoutCaching: Swift.Bool, isClosure: Swift.Bool = true)
+  public func cast<U>(_ block: @escaping (Value?) throws -> U?) -> Nimble.Expression<U>
+  public func evaluate() throws -> Value?
+  public func withoutCaching() -> Nimble.Expression<Value>
+  public func withCaching() -> Nimble.Expression<Value>
+  public func toAsyncExpression() -> Nimble.AsyncExpression<Value>
+}
+extension Foundation.Date : @unchecked Swift.Sendable {
+}
+extension Nimble.NimbleTimeInterval {
+  public static func < (lhs: Nimble.NimbleTimeInterval, rhs: Nimble.NimbleTimeInterval) -> Swift.Bool
+}
+extension Nimble.SyncRequirement {
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `toEventually` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `toEventuallyNot` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `toNotEventually` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `toNever` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `neverTo` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `toAlways` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $NoAsyncAvailability
+  @available(*, noasync, message: "the sync variant of `alwaysTo` does not work in async contexts. Use the async variant as a drop-in replacement")
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #else
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+}
+extension Nimble.AsyncRequirement {
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.Matcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.Matcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toEventuallyNot(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNotEventually(_ matcher: Nimble.AsyncMatcher<Value>, timeout: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toNever(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func neverTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func toAlways(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  @discardableResult
+  public func alwaysTo(_ matcher: Nimble.AsyncMatcher<Value>, until: Nimble.NimbleTimeInterval = PollingDefaults.timeout, pollInterval: Nimble.NimbleTimeInterval = PollingDefaults.pollInterval, description: Swift.String? = nil) async throws -> Value
+  #endif
+}
+@discardableResult
+public func pollUnwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () throws -> T?) throws -> T
+@discardableResult
+public func pollUnwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T?)) throws -> T
+@discardableResult
+public func pollUnwraps<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () throws -> T?) throws -> T
+@discardableResult
+public func pollUnwraps<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() throws -> T?)) throws -> T
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func pollUnwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @escaping () async throws -> T?) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func pollUnwrap<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: () -> (() async throws -> T?)) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func pollUnwrapa<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure @escaping () async throws -> T?) async throws -> T
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+@discardableResult
+public func pollUnwrapa<T>(file: Nimble.FileString = #file, line: Swift.UInt = #line, _ expression: @autoclosure () -> (() async throws -> T?)) async throws -> T
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol AsyncableMatcher<Value> {
+  associatedtype Value
+  #if compiler(>=5.3) && $AsyncAwait
+  func satisfies(_ expression: Nimble.AsyncExpression<Self.Value>) async throws -> Nimble.MatcherResult
+  #endif
+}
+#else
+public protocol AsyncableMatcher {
+  associatedtype Value
+  #if compiler(>=5.3) && $AsyncAwait
+  func satisfies(_ expression: Nimble.AsyncExpression<Self.Value>) async throws -> Nimble.MatcherResult
+  #endif
+}
+#endif
+extension Nimble.Matcher : Nimble.AsyncableMatcher {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func satisfies(_ expression: Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherResult
+  #endif
+  public typealias Value = T
+}
+public struct AsyncMatcher<T> : Nimble.AsyncableMatcher {
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(_ matcher: @escaping (Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherResult)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func satisfies(_ expression: Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherResult
+  #endif
+  public typealias Value = T
+}
+@available(*, deprecated, renamed: "AsyncMatcher")
+public typealias AsyncPredicate = Nimble.AsyncMatcher
+extension Nimble.AsyncMatcher {
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func define(matcher: @escaping (Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherResult) -> Nimble.AsyncMatcher<T>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func define(_ message: Swift.String = "match", matcher: @escaping (Nimble.AsyncExpression<T>, Nimble.ExpectationMessage) async throws -> Nimble.MatcherResult) -> Nimble.AsyncMatcher<T>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func defineNilable(_ message: Swift.String = "match", matcher: @escaping (Nimble.AsyncExpression<T>, Nimble.ExpectationMessage) async throws -> Nimble.MatcherResult) -> Nimble.AsyncMatcher<T>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func simple(_ message: Swift.String = "match", matcher: @escaping (Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherStatus) -> Nimble.AsyncMatcher<T>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func simpleNilable(_ message: Swift.String = "match", matcher: @escaping (Nimble.AsyncExpression<T>) async throws -> Nimble.MatcherStatus) -> Nimble.AsyncMatcher<T>
+  #endif
+}
+extension Nimble.AsyncMatcher {
+  public var requireNonNil: Nimble.AsyncMatcher<T> {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class FailureMessage : ObjectiveC.NSObject {
+  public var expected: Swift.String
+  public var actualValue: Swift.String?
+  public var to: Swift.String
+  public var postfixMessage: Swift.String
+  public var postfixActual: Swift.String
+  public var extendedMessage: Swift.String?
+  public var userDescription: Swift.String?
+  public var stringValue: Swift.String {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  public init(stringValue: Swift.String)
+  @objc deinit
+}
+public struct Matcher<T> {
+  public init(_ matcher: @escaping (Nimble.Expression<T>) throws -> Nimble.MatcherResult)
+  public func satisfies(_ expression: Nimble.Expression<T>) throws -> Nimble.MatcherResult
+}
+@available(*, deprecated, renamed: "Matcher")
+public typealias Predicate = Nimble.Matcher
+extension Nimble.Matcher {
+  public static func define(matcher: @escaping (Nimble.Expression<T>) throws -> Nimble.MatcherResult) -> Nimble.Matcher<T>
+  public static func define(_ message: Swift.String = "match", matcher: @escaping (Nimble.Expression<T>, Nimble.ExpectationMessage) throws -> Nimble.MatcherResult) -> Nimble.Matcher<T>
+  public static func defineNilable(_ message: Swift.String = "match", matcher: @escaping (Nimble.Expression<T>, Nimble.ExpectationMessage) throws -> Nimble.MatcherResult) -> Nimble.Matcher<T>
+}
+extension Nimble.Matcher {
+  public static func simple(_ message: Swift.String = "match", matcher: @escaping (Nimble.Expression<T>) throws -> Nimble.MatcherStatus) -> Nimble.Matcher<T>
+  public static func simpleNilable(_ message: Swift.String = "match", matcher: @escaping (Nimble.Expression<T>) throws -> Nimble.MatcherStatus) -> Nimble.Matcher<T>
+}
+public enum ExpectationStyle {
+  case toMatch, toNotMatch
+  public static func == (a: Nimble.ExpectationStyle, b: Nimble.ExpectationStyle) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct MatcherResult {
+  public var status: Nimble.MatcherStatus
+  public var message: Nimble.ExpectationMessage
+  public init(status: Nimble.MatcherStatus, message: Nimble.ExpectationMessage)
+  public init(bool: Swift.Bool, message: Nimble.ExpectationMessage)
+  public func toBoolean(expectation style: Nimble.ExpectationStyle) -> Swift.Bool
+}
+@available(*, deprecated, renamed: "MatcherResult")
+public typealias PredicateResult = Nimble.MatcherResult
+public enum MatcherStatus {
+  case matches
+  case doesNotMatch
+  case fail
+  public init(bool matches: Swift.Bool)
+  public static func == (a: Nimble.MatcherStatus, b: Nimble.MatcherStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@available(*, deprecated, renamed: "MatcherStatus")
+public typealias PredicateStatus = Nimble.MatcherStatus
+extension Nimble.Matcher {
+  public var requireNonNil: Nimble.Matcher<T> {
+    get
+  }
+}
+public typealias MatcherBlock = (_ actualExpression: Nimble.Expression<ObjectiveC.NSObject>) throws -> Nimble.NMBMatcherResult
+@available(*, deprecated, renamed: "MatcherBlock")
+public typealias PredicateBlock = Nimble.MatcherBlock
+@objc public class NMBMatcher : ObjectiveC.NSObject {
+  public init(matcher: @escaping Nimble.MatcherBlock)
+  @available(*, deprecated, renamed: "init(matcher:)")
+  convenience public init(predicate: @escaping Nimble.MatcherBlock)
+  @objc deinit
+}
+@available(*, deprecated, renamed: "NMBMatcher")
+public typealias NMBPredicate = Nimble.NMBMatcher
+@objc final public class NMBMatcherResult : ObjectiveC.NSObject {
+  final public var status: Nimble.NMBMatcherStatus
+  final public var message: Nimble.NMBExpectationMessage
+  public init(status: Nimble.NMBMatcherStatus, message: Nimble.NMBExpectationMessage)
+  public init(bool success: Swift.Bool, message: Nimble.NMBExpectationMessage)
+  final public func toSwift() -> Nimble.MatcherResult
+  @objc deinit
+}
+@available(*, deprecated, renamed: "NMBMatcherResult")
+public typealias NMBPredicateResult = Nimble.NMBMatcherResult
+extension Nimble.MatcherResult {
+  public func toObjectiveC() -> Nimble.NMBMatcherResult
+}
+@objc @_hasMissingDesignatedInitializers final public class NMBMatcherStatus : ObjectiveC.NSObject {
+  public static let matches: Nimble.NMBMatcherStatus
+  public static let doesNotMatch: Nimble.NMBMatcherStatus
+  public static let fail: Nimble.NMBMatcherStatus
+  @objc override final public var hash: Swift.Int {
+    @objc get
+  }
+  @objc override final public func isEqual(_ object: Any?) -> Swift.Bool
+  public static func from(status: Nimble.MatcherStatus) -> Nimble.NMBMatcherStatus
+  public static func from(bool success: Swift.Bool) -> Nimble.NMBMatcherStatus
+  final public func toSwift() -> Nimble.MatcherStatus
+  @objc deinit
+}
+@available(*, deprecated, renamed: "NMBMatcherStatus")
+public typealias NMBPredicateStatus = Nimble.NMBMatcherStatus
+extension Nimble.MatcherStatus {
+  public func toObjectiveC() -> Nimble.NMBMatcherStatus
+}
+public func haveCount<T>(_ expectedValue: Swift.Int) -> Nimble.Matcher<T> where T : Swift.Collection
+public func haveCount(_ expectedValue: Swift.Int) -> Nimble.Matcher<Nimble.NMBCollection>
+extension Nimble.NMBMatcher {
+  @objc dynamic public class func haveCountMatcher(_ expected: Foundation.NSNumber) -> Nimble.NMBMatcher
+}
+extension Nimble.ExpectationStatus : Swift.Hashable {}
+extension Nimble.NimbleTimeInterval : Swift.Comparable {}
+extension Nimble.ExpectationStyle : Swift.Equatable {}
+extension Nimble.ExpectationStyle : Swift.Hashable {}
+extension Nimble.MatcherStatus : Swift.Equatable {}
+extension Nimble.MatcherStatus : Swift.Hashable {}
