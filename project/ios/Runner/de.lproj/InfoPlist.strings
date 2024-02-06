@@ -1,0 +1,10 @@
+/* 
+  infoPlist.strings
+  Runner
+
+  Created by mac_jufeng on 2023/6/29.
+  
+*/
+
+"CFBundleName" = "Plan zur Raucherentwöhnung";
+"CFBundleDisplayName" = "Plan zur Raucherentwöhnung";

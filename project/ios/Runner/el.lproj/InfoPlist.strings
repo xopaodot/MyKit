@@ -1,0 +1,10 @@
+/* 
+  infoPlist.strings
+  Runner
+
+  Created by mac_jufeng on 2023/6/29.
+  
+*/
+
+"CFBundleName" = "Σχέδιο παύσης του καπνίσματος";
+"CFBundleDisplayName" = "Σχέδιο παύσης του καπνίσματος";
